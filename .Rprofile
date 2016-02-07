@@ -2,6 +2,7 @@
 library("car")
 library("sm")
 library("mclust")
+library("plyr")
 library("ggplot2")
 library("gplots")
 library("gridExtra")
