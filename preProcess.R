@@ -22,7 +22,7 @@ BGRaw$Event <- as.factor(BGRaw$Event)
 BG.all <- BGRaw[!is.na(BGRaw$BGLevel),c("Date", "Time", "BGLevel", "Event", "Tstmp")]
 BG.all <- BGRaw[!is.na(BGRaw$BGLevel),c("Date", "Time", "BGLevel", "Event", "Tstmp")]
 #
-# sample for testing
+# sample for testing purposes
 #
 BG.tmp <- BG.all[BG.all$Tstmp >= "2016-09-01 00:00:00",]
 
