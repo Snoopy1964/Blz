@@ -10,14 +10,20 @@
 
 BGRaw <- read.csv2("Data/BlutzuckerWerte2016.csv", sep=";", stringsAsFactors=FALSE)
 # 
+# convert raw data
+#
 BGRaw$Time  <- ifelse(BGRaw$Time == "", "00:00", BGRaw$Time)
 BGRaw$Tstmp <- as.POSIXct(paste(BGRaw$Date,BGRaw$Time), format="%d.%m.%Y %H:%M")
 BGRaw$Date  <- as.Date(BGRaw$Date, format="%d.%m.%Y")
 BGRaw$Event <- as.factor(BGRaw$Event)
-
+#
+# select BGLevel data only
+#
 BG.all <- BGRaw[!is.na(BGRaw$BGLevel),c("Date", "Time", "BGLevel", "Event", "Tstmp")]
 BG.all <- BGRaw[!is.na(BGRaw$BGLevel),c("Date", "Time", "BGLevel", "Event", "Tstmp")]
-
+#
+# sample for testing
+#
 BG.tmp <- BG.all[BG.all$Tstmp >= "2016-09-01 00:00:00",]
 
 #BG <- aggregate(x=BG.tmp, by=list(BG.tmp$Date), FUN="summarize")
