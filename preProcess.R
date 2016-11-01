@@ -19,14 +19,25 @@ BGRaw$Event <- as.factor(BGRaw$Event)
 #
 # select BGLevel data only
 #
-BG.all <- BGRaw[!is.na(BGRaw$BGLevel),c("Date", "Time", "BGLevel", "Event", "Tstmp")]
-BG.all <- BGRaw[!is.na(BGRaw$BGLevel),c("Date", "Time", "BGLevel", "Event", "Tstmp")]
+# BG.all <- BGRaw[!is.na(BGRaw$BGLevel),c("Date", "Time", "BGLevel", "Event", "Tstmp")]
+BG.all <- BGRaw[BGRaw$Event %in% c("T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8"),c("Date", "Time", "BGLevel", "Event", "Tstmp")]
+BG.all$Event <- factor(BG.all$Event)
 #
 # sample for testing purposes
 #
-BG.tmp <- BG.all[BG.all$Tstmp >= "2016-09-01 00:00:00",]
+BG.tmp <- BG.all#[BG.all$Tstmp >= "2016-09-01 00:00:00",]
+#BG.tmp <- BG.all[1:100,]
 
 #BG <- aggregate(x=BG.tmp, by=list(BG.tmp$Date), FUN="summarize")
-                
-               
+
+#
+# split data by day
+#                
+BG.list <- split(BG.tmp, BG.tmp$Date)
+BG.list <- lapply(BG.list, FUN = calcBGdiffs)
+
+BG <- rbindlist(BG.list)
+
+
+
 
